@@ -63,8 +63,21 @@ impl Application for Pokedex {
 	fn view(&mut self) -> Element<Message> {
 		let content = match self {
 			Self::Loading => Column::new()
+				.align_items(Align::Center)
+				.spacing(20)
 				.width(Length::Shrink)
-				.push(Text::new("Searching for Pokémon...").size(40)),
+				.push(Text::new("Searching for Pokémon...").size(40))
+				.push(
+					if cfg!(target_arch = "wasm32") {
+						Image::new("resources/pokeball.png")
+					} else {
+						Image::new(format!(
+							"{}/resources/pokeball.png",
+							env!("CARGO_MANIFEST_DIR")
+						))
+					}
+					.width(Length::Units(100)),
+				),
 			Self::Loaded { pokemon, search } => Column::new()
 				.padding(20)
 				.spacing(50)

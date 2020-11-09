@@ -5,7 +5,6 @@ use pokedex::Pokedex;
 
 fn main() {
 	let mut settings = iced::Settings::default();
-	settings.window.size = (600, 540);
-	settings.window.resizable = true;
+	settings.window.size = (540, 600);
 	Pokedex::run(settings);
 }
